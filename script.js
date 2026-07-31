@@ -25,11 +25,11 @@
           vid.currentTime = main.currentTime;
         }
         if (main.paused && !vid.paused) vid.pause();
-        if (!main.paused && vid.paused) vid.play();
+        if (!main.paused && vid.paused) vid.play().catch(() => {});
       });
     };
 
-    main.addEventListener('play', () => variants.forEach(v => v.play()));
+    main.addEventListener('play', () => variants.forEach(v => v.play().catch(() => {})));
     main.addEventListener('pause', () => variants.forEach(v => v.pause()));
     main.addEventListener('seeking', () => variants.forEach(v => v.currentTime = main.currentTime));
     main.addEventListener('timeupdate', sync);
@@ -42,7 +42,7 @@
       s.classList.toggle('active', i === idx);
       const vids = s.querySelectorAll('video');
       if (i === idx) {
-        vids.forEach(v => v.play());
+        vids.forEach(v => v.play().catch(() => {}));
       } else {
         vids.forEach(v => {
           v.pause();
@@ -102,7 +102,8 @@ function applyTimeTheme() {
 applyTimeTheme();
 
 window.copyBibtex = function() {
-  const raw = `@misc{ko20263dreamboothhighfidelity3dsubjectdriven,\n  title         = {3DreamBooth: High-Fidelity 3D Subject-Driven Video Generation Model},\n  author        = {Hyun-kyu Ko and Jihyeon Park and Younghyun Kim and Dongheok Park and Eunbyung Park},\n  year          = {2026},\n  eprint        = {2603.18524},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.CV},\n  url           = {https://arxiv.org/abs/2603.18524},\n}`;
+  const codeEl = document.querySelector('#bibCode pre code');
+  const raw = codeEl ? codeEl.innerText : '';
   navigator.clipboard.writeText(raw);
   const btn = document.getElementById('bibCopyBtn');
   btn.textContent = 'Copied!'; btn.classList.add('copied');
