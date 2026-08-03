@@ -269,6 +269,26 @@ nav {
   transform: translateY(-2px);
 }
 
+.cvpr-badge {
+  background: var(--gold-dim);
+  color: var(--gold);
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--gold);
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  transition: all 0.25s ease;
+}
+
+.hero-link.paper:hover .cvpr-badge {
+  background: var(--gold);
+  color: var(--bg);
+}
+
 .hero-link.code {
   background: transparent;
   color: var(--muted2);
